@@ -36,15 +36,15 @@ def product_list(request):
     if form.is_valid():
         data = form.cleaned_data
         category_id = data.get("category")
-        tag_id = data.get("tag")
+        tag = data.get("tag")
         search_term = data.get("q")
 
         #If statements allow for combinations of queries and search
         if category_id:
             query &= Q(category_id=category_id)
 
-        if tag_id:
-            query &= Q(tags__id=tag_id)
+        if tag:
+            query &= Q(tags=tag)
 
         #Basic search - future work for full text search implementation
         if search_term:

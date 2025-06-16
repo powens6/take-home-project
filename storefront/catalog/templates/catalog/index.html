@@ -108,11 +108,11 @@
     {% endfor %}
   </select>
 
-  <select name="tags" aria-label="Filter by tag">
+  <select name="tag" aria-label="Filter by tag">
     <option value="">All tags</option>
     {% for t in tags %}
       <option value="{{ t.id }}"
-              {% if request.GET.tags == t.id|stringformat:"s" %}selected{% endif %}>
+              {% if request.GET.tag == t.id|stringformat:"i" %}selected{% endif %}>
         {{ t.name }}
       </option>
     {% endfor %}
