@@ -45,3 +45,29 @@ erDiagram
 
 - **Tag**
   - `name`: Unique string identifier for the tag
+
+## Setup Instructions
+
+1. **Create a virtual environment** (optional but recommended):
+   ```bash
+   python -m venv .venv
+   source .venv/bin/activate
+   ```
+2. **Install dependencies**:
+   ```bash
+   pip install -r requirements.txt
+   ```
+3. **Apply database migrations**:
+   ```bash
+   python storefront/manage.py migrate
+   ```
+4. **Seed the database with sample data**:
+   ```bash
+   python storefront/manage.py seed_catalog
+   ```
+5. **Run the development server**:
+   ```bash
+   python storefront/manage.py runserver
+   ```
+
+After the server starts, visit `http://127.0.0.1:8000/` to view the product catalog.
