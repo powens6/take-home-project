@@ -2,7 +2,7 @@ from django.core.management.base import BaseCommand
 
 from catalog.models import Category, Tag, Product
 
-
+#Ai generated class to seed the data I used. I love fly fishing, so I chose fly fishing products.
 class Command(BaseCommand):
     """Seed the database with sample categories, tags and products."""
 

@@ -3,7 +3,7 @@ from django import forms
 from django import forms
 from .models import Category, Tag
 
-
+#Class for the search form in the index.html file. The form helps with the Search and Filtering Functionality.
 class ProductFilterForm(forms.Form):
 
     #search

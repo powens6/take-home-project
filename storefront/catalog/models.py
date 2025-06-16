@@ -1,5 +1,7 @@
 from django.db import models
 
+
+#See README for model diagram
 class Category(models.Model):
     name = models.CharField(max_length=100, unique=True)
 
