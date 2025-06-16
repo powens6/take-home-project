@@ -4,6 +4,8 @@ from .models import *
 from django.db.models import Q
 from .forms import ProductFilterForm
 
+#This was the initial logic I wrote, specifically to minimize SQL Calls to the database. 
+# It is left here on purpose despite not being used for debuging and visibility.
 def index(request):
     latest_products = (
         Product.objects

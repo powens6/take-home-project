@@ -6,7 +6,7 @@ from .models import Category, Tag
 
 class ProductFilterForm(forms.Form):
 
-    # Free-text search
+    #search
     q = forms.CharField(
         label="Search products",
         required=False,
@@ -19,7 +19,7 @@ class ProductFilterForm(forms.Form):
         ),
     )
 
-    # Category dropdown
+    # Category
     category = forms.ModelChoiceField(
         label="Category",
         queryset=Category.objects.all().order_by("name"),
@@ -27,19 +27,10 @@ class ProductFilterForm(forms.Form):
         empty_label="All categories",
     )
 
-    # Tag dropdown
+    # Tag
     tag = forms.ModelChoiceField(
         label="Tag",
         queryset=Tag.objects.all().order_by("name"),
         required=False,
         empty_label="All tags",
     )
-
-    def __init__(self, *args, **kwargs):
-        """
-        AI helped me do this to do the following:
-        If you ever want to pass in pre-filtered querysets for
-        Category or Tag (e.g. only active ones), you can do it
-        here by popping extra kwargs before super().__init__().
-        """
-        super().__init__(*args, **kwargs)
