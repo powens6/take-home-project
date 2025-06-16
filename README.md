@@ -24,7 +24,7 @@
    python storefront/manage.py runserver
    ```
 
-After the server starts, visit `http://127.0.0.1:8000/catalog/` to view the product catalog.
+After the server starts, visit `http://127.0.0.1:8000/catalog/products/` to view the product catalog.
 
 ## Design Decisions and Future Work
 
