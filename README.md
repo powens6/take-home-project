@@ -32,6 +32,8 @@ One of the main constraints was time in this project, which is why I decided to 
 
 Tests are also implemented, which are AI generated based on the view logic.
 
+NOTE: I love fly fishing, so fishing gear is my product of choice.
+
 ## AI Usage
 I developed the form logic, Q-object filters, and data model from scratch, then used ChatGPT to polish the model, templates, and styling; Cursor was employed only occasionally to debug the form integration.
 
