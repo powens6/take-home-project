@@ -1,0 +1,146 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Latest Fly-Fishing Products</title>
+
+    <link rel="stylesheet" href="{% static 'css/base.css' %}" />
+
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        margin: 2rem;
+      }
+
+      /* ---------- headings ---------- */
+      h1 {
+        margin-bottom: 1.5rem;
+      }
+
+      /* ---------- filter form ---------- */
+      .filter-form {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-bottom: 2rem;
+      }
+      .filter-form input[type="text"],
+      .filter-form select {
+        padding: 0.45rem 0.6rem;
+        border: 1px solid #ccc;
+        border-radius: 0.25rem;
+        font-size: 0.95rem;
+        min-width: 180px;
+      }
+      .filter-form button {
+        padding: 0.45rem 1rem;
+        border: none;
+        background: #007acc;
+        color: #fff;
+        font-size: 0.95rem;
+        border-radius: 0.25rem;
+        cursor: pointer;
+      }
+      .filter-form button:hover {
+        background: #005fa3;
+      }
+
+      /* ---------- product list ---------- */
+      ul {
+        list-style: none;
+        padding: 0;
+      }
+      li {
+        margin-bottom: 1.25rem;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 1rem;
+      }
+      .name {
+        font-weight: 600;
+      }
+      .category {
+        color: #777;
+        font-size: 0.9rem;
+      }
+
+      /* ---------- chips ---------- */
+      .chips {
+        margin-top: 0.5rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+      }
+      .chip {
+        padding: 0.15rem 0.6rem;
+        font-size: 0.8rem;
+        background: #eef6ff;
+        border: 1px solid #b3d4ff;
+        border-radius: 9999px;
+        white-space: nowrap;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Latest Products</h1>
+
+    <!-- Filter / Search form -->
+    <form
+  class="filter-form"
+  action="{% url 'product_list' %}"
+  method="get"
+>
+  <input
+    type="text"
+    name="q"
+    value="{{ request.GET.q|default_if_none:'' }}"
+    placeholder="Search products…"
+  />
+
+  <select name="category" aria-label="Filter by category">
+    <option value="">All categories</option>
+    {% for cat in categories %}
+      <option value="{{ cat.id }}"
+              {% if request.GET.category == cat.id|stringformat:"i" %}selected{% endif %}>
+        {{ cat.name }}
+      </option>
+    {% endfor %}
+  </select>
+
+  <select name="tags" aria-label="Filter by tag">
+    <option value="">All tags</option>
+    {% for t in tags %}
+      <option value="{{ t.id }}"
+              {% if request.GET.tags == t.id|stringformat:"s" %}selected{% endif %}>
+        {{ t.name }}
+      </option>
+    {% endfor %}
+  </select>
+
+  <button type="submit">Filter</button>
+</form>
+
+    {% if latest_products %}
+    <ul>
+      {% for product in latest_products %}
+      <li>
+        <div class="name">{{ product.name }}</div>
+        <div class="category">{{ product.category.name }}</div>
+        <p class="desc">{{ product.description|truncatechars:100 }}</p>
+
+        <div class="chips">
+          {% for tag in product.tags.all %}
+          <span class="chip">{{ tag.name }}</span>
+          {% empty %}
+          <span class="chip">No tags</span>
+          {% endfor %}
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p>No products available.</p>
+    {% endif %}
+  </body>
+</html>
