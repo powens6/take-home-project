@@ -108,7 +108,7 @@
     {% endfor %}
   </select>
 
-  <select name="tag" aria-label="Filter by tag">
+  <select name="tag" aria-label="Filter by tag" multiple>
     <option value="">All tags</option>
     {% for t in tags %}
       <option value="{{ t.id }}"

@@ -20,7 +20,7 @@ def index(request):
 def product_list(request):
     
     form = ProductFilterForm(request.GET or None)
-
+    print(str(request.GET.getlist("tag")))
     #Initial Queryset
     qs = (
         Product.objects
@@ -36,15 +36,19 @@ def product_list(request):
     if form.is_valid():
         data = form.cleaned_data
         category_id = data.get("category")
-        tag = data.get("tag")
+        #tag = data.get("tag")
+        tag_mult = request.GET.getlist("tag")
         search_term = data.get("q")
 
         #If statements allow for combinations of queries and search
         if category_id:
             query &= Q(category_id=category_id)
 
-        if tag:
-            query &= Q(tags=tag)
+        if tag_mult:
+            for t in tag_mult:
+              if t != '':
+                query &= Q(tags=t)
+                #qs = qs.filter(tags=t)
 
         #Basic search - future work for full text search implementation
         if search_term:
@@ -55,7 +59,7 @@ def product_list(request):
 
     #combine queries and filter queryset
     products = qs.filter(query).distinct()
-
+    print(products.query)
     #add context for template
     context = {
         "latest_products": products,
